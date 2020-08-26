@@ -16,10 +16,10 @@ namespace HobbyHall.Api.Repositories
             return await Task.FromResult(users.AsEnumerable<User>());
         }
 
-        public Task<User> GetById(int userId)
+        public async Task<User> GetByIdAsync(int userId)
         {
             johnDoe.Id = userId;
-            return Task.FromResult(johnDoe);
+            return await Task.FromResult(johnDoe);
         }
 
         public Task<User> Update(User user)

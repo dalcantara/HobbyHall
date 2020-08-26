@@ -33,7 +33,10 @@ namespace HobbyHall.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = await _userRepository.GetById(id);
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null) {
+                return NotFound(new EmptyResult());
+            }
             return Ok(user);
         }
     }

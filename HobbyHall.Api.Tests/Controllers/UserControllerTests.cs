@@ -19,13 +19,12 @@ namespace HobbyHall.Api.Tests.Controllers
         Mock<IReadOnlyUserRepository> _mockUserRepository = new Mock<IReadOnlyUserRepository>();
         public UserControllerTests()
         {
-            _mockUserRepository = new Mock<IReadOnlyUserRepository>();
+            _mockUserRepository = new Mock<IReadOnlyUserRepository>(MockBehavior.Strict);
             _sut = new QueryUserController(_mockUserRepository.Object);
-
         }
 
         [Fact]
-        public void List_ShouldReturnUserList_FromUserRepository()
+        public void List_ShouldReturnExistingUserList_WhenUsersExist()
         {
 
             //arrange
@@ -39,6 +38,41 @@ namespace HobbyHall.Api.Tests.Controllers
             //assert
             actualResult.StatusCode.Should().Be(200);
             actualResult.Value.Should().BeEquivalentTo(userList);
+        }
+
+        [Fact]
+        public void GetById_ShouldReturnUser_WhenUserWithGivenIdExists()
+        {
+
+            //arrange
+            var expectedUser = new User { Id = 1 };
+            var storedUser = Task.FromResult(expectedUser);
+
+            _mockUserRepository.Setup(r => r.GetByIdAsync(1)).Returns(storedUser);
+
+            //act
+            var actualResult = _sut.GetById(1).Result as OkObjectResult;
+
+            //assert
+            actualResult.StatusCode.Should().Be(200);
+            actualResult.Value.Should().BeEquivalentTo(expectedUser);
+        }
+
+        [Fact]
+        public void GetById_ShouldReturnNotFound_WhenUserDoesNotExist()
+        {
+            //arrange
+            var user = new User();
+            var storedUser = Task.FromResult((User) null);
+
+            _mockUserRepository.Setup(r => r.GetByIdAsync(1)).Returns(storedUser);
+
+            //act
+            var actualResult = _sut.GetById(1).Result as NotFoundObjectResult;
+
+            //assert
+            actualResult.StatusCode.Should().Be(404);
+            actualResult.Value.Should().BeAssignableTo<EmptyResult>();
         }
     }
 }

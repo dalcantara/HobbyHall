@@ -7,6 +7,6 @@ namespace HobbyHall.Api.Repositories
     public interface IReadOnlyUserRepository
     {
         Task<IEnumerable<User>> GetAllAsync();
-        Task<User> GetById(int userId);
+        Task<User> GetByIdAsync(int userId);
     }
 }
