@@ -6,6 +6,7 @@ using FluentAssertions;
 using HobbyHall.Api.Controllers;
 using HobbyHall.Api.Models;
 using HobbyHall.Api.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -29,14 +30,16 @@ namespace HobbyHall.Api.Tests.Controllers
 
             //arrange
             var userList = new List<User>() { new User { Id = 1 }, new User { Id = 2 } };
-            var expectedResult = Task.FromResult(userList.AsEnumerable<User>());
-            _mockUserRepository.Setup(r => r.GetAllAsync()).Returns(expectedResult);
-
+            var storedUserList = Task.FromResult(userList.AsEnumerable());
+            _mockUserRepository.Setup(r => r.GetAllAsync()).Returns(storedUserList);
+            
             //act
-            var actualResult = _sut.List();
+            var actualResult = _sut.List().Result as OkObjectResult;
 
             //assert
-            actualResult.Should().BeSameAs(expectedResult);
+
+            actualResult.StatusCode.Should().Be(200);
+            actualResult.Value.Should().BeEquivalentTo(userList);
         }
     }
 }

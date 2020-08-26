@@ -23,16 +23,18 @@ namespace HobbyHall.Api.Controllers
 
         // GET: api/values
         [HttpGet]
-        public Task<IEnumerable<User>> List()
+        public async Task<IActionResult> List()
         {
-            return _userRepository.GetAllAsync();
+            var users = await _userRepository.GetAllAsync();
+            return Ok(users);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Task<User> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return _userRepository.GetById(id);
+            var user = await _userRepository.GetById(id);
+            return Ok(user);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace HobbyHall.Api.Repositories
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllAsync();
-        Task<User> GetById(int userId);
+        Task<IEnumerable<User>>  GetAllAsync();
+        Task<User>  GetById(int userId);
     }
 }
