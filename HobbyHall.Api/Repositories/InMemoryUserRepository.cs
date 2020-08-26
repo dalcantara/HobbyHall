@@ -16,18 +16,18 @@ namespace HobbyHall.Api.Repositories
             return await Task.FromResult(users.AsEnumerable<User>());
         }
 
-        public async Task<User> GetByIdAsync(string userId)
+        public async Task<User> GetByUsernameAsync(string userId)
         {
             johnDoe.Id = userId;
             return await Task.FromResult(johnDoe);
         }
 
-        public Task<User> Update(string Username, User User)
+        public Task<User> UpdateAsync(string Username, User User)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<User> Create(User User)
+        public Task<User> CreateAsync(User User)
         {
             throw new System.NotImplementedException();
         }

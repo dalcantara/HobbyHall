@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace HobbyHall.Api
 {
@@ -24,12 +25,25 @@ namespace HobbyHall.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             if (_env.IsDevelopment())
             {
                 services.AddScoped<IReadOnlyUserRepository, InMemoryUserRepository>();
                 services.AddScoped<IMutableUserRepository, InMemoryUserRepository>();
+            }
+            else {
+                ConfigureMongo(services);
             };
+
             services.AddSwaggerGen();
+        }
+
+        private void ConfigureMongo(IServiceCollection services)
+        {
+            services.Configure<UserDatabaseSettings>(Configuration.GetSection(nameof(UserDatabaseSettings)));
+            services.AddSingleton<IUserDatabaseSettings>(sp => sp.GetRequiredService<IOptions<UserDatabaseSettings>>().Value);
+            services.AddSingleton<IMutableUserRepository, MongoUserRepository>();
+            services.AddSingleton<IReadOnlyUserRepository, MongoUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

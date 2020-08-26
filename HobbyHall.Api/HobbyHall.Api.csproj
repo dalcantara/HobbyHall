@@ -5,6 +5,7 @@
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'HobbyHall.Api.docker' " />
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
