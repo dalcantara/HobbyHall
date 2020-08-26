@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27018:27018"
+  hobbyhall.api:
+    container_name: hobbyhall.api
+    image: hobbyhall/hobbyhal.api
+    build:
+      context: .
+      dockerfile: HobbyHall.Api/Dockerfile
+    ports:
+        - "5001:5001"
+    depends_on:
+        - mongo
