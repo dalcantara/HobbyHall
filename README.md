@@ -33,8 +33,38 @@ The quickest way to access the existing API is navigating the [SwagerUI](https:/
 address in a Browser: [http://localhost:5001/swagger/index.html](http://localhost:5001/swagger/index.html).  
 From there you should be able to execute sample requests against a live version of the API.
 
+1. To add a new user you can click on the ```Try Out`` button and paste the following payload:
+```json 
+{
+          "userName": "dannya",
+          "firstName": "danny",
+          "lastName": "alcantara",
+          "hobbies": [
+            {
+              "name": "golf",
+              "rank": 1
+            },
+            {
+              "name": "hoops",
+              "rank": 2
+            }
+          ],
+          "addresses": [
+            {
+              "type": "work",
+              "street": "street 1",
+              "city": "miami",
+              "zip": "33176",
+              "state": "fl"
+            }
+          ]
+        }
+```
+
+You can exercise the rest of the API by following the swagger links.
+
 ##Refactoring Notes:
-Due to time constraints here are some things that 
+Due to time constraints here are some things that I missed and others that need improvement.
 
 1. The current User model though it reflects the correct Aggregate root, it serves multiple purposes. Currently, that model represents
 web messages (data on the wire), a potential view model since it has DataAnnotations, as well as the data entities stored in the mongoDB. A better 
