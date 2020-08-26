@@ -26,7 +26,8 @@ namespace HobbyHall.Api
             services.AddControllers();
             if (_env.IsDevelopment())
             {
-                services.AddScoped<IUserRepository, InMemoryUserRepository>();
+                services.AddScoped<IReadOnlyUserRepository, InMemoryUserRepository>();
+                services.AddScoped<IMutableUserRepository, InMemoryUserRepository>();
             };
         }
 

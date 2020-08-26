@@ -5,7 +5,7 @@ using HobbyHall.Api.Models;
 
 namespace HobbyHall.Api.Repositories
 {
-    public class InMemoryUserRepository : IUserRepository
+    public class InMemoryUserRepository : IReadOnlyUserRepository, IMutableUserRepository
     {
         private User johnDoe = new User { FirstName = "John", LastName = "Doe" };
 

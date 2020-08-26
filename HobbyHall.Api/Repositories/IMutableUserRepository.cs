@@ -5,9 +5,10 @@ using HobbyHall.Api.Models;
 
 namespace HobbyHall.Api.Repositories
 {
-    public interface IUserRepository
+    public interface IMutableUserRepository
     {
-        Task<IEnumerable<User>>  GetAllAsync();
-        Task<User>  GetById(int userId);
+        Task<User> Create(User user);
+        Task<User> Update(User user);
+        void Delete(int id);
     }
 }

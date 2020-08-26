@@ -15,12 +15,12 @@ namespace HobbyHall.Api.Tests.Controllers
 
     public class UserControllerTests
     {
-        UserController _sut;
-        Mock<IUserRepository> _mockUserRepository = new Mock<IUserRepository>();
+        QueryUserController _sut;
+        Mock<IReadOnlyUserRepository> _mockUserRepository = new Mock<IReadOnlyUserRepository>();
         public UserControllerTests()
         {
-            _mockUserRepository = new Mock<IUserRepository>();
-            _sut = new UserController(_mockUserRepository.Object);
+            _mockUserRepository = new Mock<IReadOnlyUserRepository>();
+            _sut = new QueryUserController(_mockUserRepository.Object);
 
         }
 
@@ -37,7 +37,6 @@ namespace HobbyHall.Api.Tests.Controllers
             var actualResult = _sut.List().Result as OkObjectResult;
 
             //assert
-
             actualResult.StatusCode.Should().Be(200);
             actualResult.Value.Should().BeEquivalentTo(userList);
         }

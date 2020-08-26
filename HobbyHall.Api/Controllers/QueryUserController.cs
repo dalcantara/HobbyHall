@@ -11,12 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace HobbyHall.Api.Controllers
 {
     [Route("api/user")]
-    public class UserController : Controller
+    public class QueryUserController : ControllerBase
     {
 
-        private readonly IUserRepository _userRepository;
+        private readonly IReadOnlyUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository)
+        public QueryUserController(IReadOnlyUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
