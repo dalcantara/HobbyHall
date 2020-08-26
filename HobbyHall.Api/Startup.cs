@@ -25,15 +25,15 @@ namespace HobbyHall.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            if (_env.IsDevelopment())
-            {
-                services.AddScoped<IReadOnlyUserRepository, InMemoryUserRepository>();
-                services.AddScoped<IMutableUserRepository, InMemoryUserRepository>();
-            }
-            else {
-                ConfigureMongo(services);
-            };
+            ConfigureMongo(services);
+            //if (_env.IsDevelopment())
+            //{
+            //    services.AddScoped<IReadOnlyUserRepository, InMemoryUserRepository>();
+            //    services.AddScoped<IMutableUserRepository, InMemoryUserRepository>();
+            //}
+            //else {
+            //    ConfigureMongo(services);
+            //};
 
             services.AddSwaggerGen();
         }

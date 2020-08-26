@@ -5,7 +5,7 @@ services:
     container_name: mongo
     image: mongo
     ports:
-      - "27018:27018"
+      - "27017:27017"
   hobbyhall.api:
     container_name: hobbyhall.api
     image: hobbyhall/hobbyhal.api

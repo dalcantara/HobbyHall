@@ -3,7 +3,7 @@ version: '3.4'
 services:
   hobbyhall.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
       - "5001:5001"
