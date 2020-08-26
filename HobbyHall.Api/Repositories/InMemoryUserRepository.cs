@@ -21,5 +21,20 @@ namespace HobbyHall.Api.Repositories
             johnDoe.Id = userId;
             return Task.FromResult(johnDoe);
         }
+
+        public Task<User> Update(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<User> Create(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
