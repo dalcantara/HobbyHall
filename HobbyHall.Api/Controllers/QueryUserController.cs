@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HobbyHall.Api.Controllers
 {
     [Route("api/user")]
+    [ApiController]
     public class QueryUserController : ControllerBase
     {
 
@@ -30,10 +31,10 @@ namespace HobbyHall.Api.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetById(string Username)
         {
-            var user = await _userRepository.GetByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(Username);
             if (user == null) {
                 return NotFound(new EmptyResult());
             }

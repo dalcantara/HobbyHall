@@ -7,8 +7,8 @@ namespace HobbyHall.Api.Repositories
 {
     public interface IMutableUserRepository
     {
-        Task<User> Create(User user);
-        Task<User> Update(User user);
-        void Delete(int id);
+        Task<User> Create(User User);
+        Task<User> Update(string UserName, User Usre);
+        void Delete(string Id);
     }
 }

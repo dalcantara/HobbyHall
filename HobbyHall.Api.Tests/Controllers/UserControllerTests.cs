@@ -15,6 +15,8 @@ namespace HobbyHall.Api.Tests.Controllers
 
     public class UserControllerTests
     {
+        private static readonly User user1 = new User { UserName = "user1" };
+        private static readonly User user2 = new User { UserName = "user2" };
         QueryUserController _sut;
         Mock<IReadOnlyUserRepository> _mockUserRepository = new Mock<IReadOnlyUserRepository>();
         public UserControllerTests()
@@ -28,7 +30,7 @@ namespace HobbyHall.Api.Tests.Controllers
         {
 
             //arrange
-            var userList = new List<User>() { new User { Id = 1 }, new User { Id = 2 } };
+            var userList = new List<User>() {user1, user2};
             var storedUserList = Task.FromResult(userList.AsEnumerable());
             _mockUserRepository.Setup(r => r.GetAllAsync()).Returns(storedUserList);
             
@@ -45,30 +47,28 @@ namespace HobbyHall.Api.Tests.Controllers
         {
 
             //arrange
-            var expectedUser = new User { Id = 1 };
-            var storedUser = Task.FromResult(expectedUser);
+            var storedUser = Task.FromResult(user1);
 
-            _mockUserRepository.Setup(r => r.GetByIdAsync(1)).Returns(storedUser);
+            _mockUserRepository.Setup(r => r.GetByIdAsync(user1.UserName)).Returns(storedUser);
 
             //act
-            var actualResult = _sut.GetById(1).Result as OkObjectResult;
+            var actualResult = _sut.GetById(user1.UserName).Result as OkObjectResult;
 
             //assert
             actualResult.StatusCode.Should().Be(200);
-            actualResult.Value.Should().BeEquivalentTo(expectedUser);
+            actualResult.Value.Should().BeEquivalentTo(user1);
         }
 
         [Fact]
         public void GetById_ShouldReturnNotFound_WhenUserDoesNotExist()
         {
             //arrange
-            var user = new User();
             var storedUser = Task.FromResult((User) null);
 
-            _mockUserRepository.Setup(r => r.GetByIdAsync(1)).Returns(storedUser);
+            _mockUserRepository.Setup(r => r.GetByIdAsync(user1.UserName)).Returns(storedUser);
 
             //act
-            var actualResult = _sut.GetById(1).Result as NotFoundObjectResult;
+            var actualResult = _sut.GetById(user1.UserName).Result as NotFoundObjectResult;
 
             //assert
             actualResult.StatusCode.Should().Be(404);

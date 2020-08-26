@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace HobbyHall.Api.Models
 {
@@ -8,7 +11,12 @@ namespace HobbyHall.Api.Models
         public User()
         {
         }
-        public int Id { get; set; }
+        [JsonIgnore]
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public IEnumerable<Hobby> Hobbies { get; set; }

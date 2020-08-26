@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HobbyHall.Api.Controllers
 {
+    [Route("api/user")]
+    [ApiController]
     public class EditUserController: ControllerBase
     {
         private readonly IMutableUserRepository _userRepository;
@@ -16,25 +18,26 @@ namespace HobbyHall.Api.Controllers
         {
             _userRepository = userRepository;
         }
+
         // POST api/values
         [HttpPost]
-        public Task<User> Post([FromBody] string value)
+        public Task<User> Post([FromBody] User NewUser)
         {
             return _userRepository.Create(new User { });
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public Task<User> Put(int id, [FromBody] string value)
+        [HttpPut("{username}")]
+        public Task<User> Put(string Username, [FromBody] User UpdatedUser)
         {
-            return _userRepository.Update(new User { });
+            return _userRepository.Update(Username, new User { });
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{username}")]
+        public void Delete(string Username)
         {
-            _userRepository.Delete(id);
+            _userRepository.Delete(Username);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace HobbyHall.Api
                 services.AddScoped<IReadOnlyUserRepository, InMemoryUserRepository>();
                 services.AddScoped<IMutableUserRepository, InMemoryUserRepository>();
             };
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +44,18 @@ namespace HobbyHall.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            ConfigureSwagger(app);
+
+        }
+        private static void ConfigureSwagger(IApplicationBuilder app)
+        {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(swagger =>
+            {
+                swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Hello World");
             });
         }
     }
